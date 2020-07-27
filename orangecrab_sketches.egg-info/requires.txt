@@ -1,0 +1,6 @@
+luna@ git+git://github.com/tiltmesenpai/luna@master
+nmigen@ git+git://github.com/nmigen/nmigen@master
+nmigen-boards==0.1.dev141+gd80be71.dirty
+usb_protocol@ git+https://github.com/tiltmesenpai/python-usb-protocol@master
+yowasp-nextpnr-ecp5-25k
+yowasp-yosys
