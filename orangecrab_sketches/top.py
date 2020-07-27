@@ -7,6 +7,7 @@ from .clock import OrangeCrabDomainGenerator
 from .capsense import Capsense
 from .adc import CrabADC
 from .dac import *
+from .tables import SinTable
 
 class USBSerialDeviceExample(Elaboratable):
     """ Device that acts as a 'USB-to-serial' loopback using our premade gateware. """
@@ -42,12 +43,12 @@ class USBSerialDeviceExample(Elaboratable):
 class Main(Elaboratable):
     def elaborate(self, platform):
         m = Module()
-        # capsense = platform.request("capsense", 0)
         usrbtn   = platform.request("button", 0)
         programn = platform.request("program", 0)
+        rgb_led = platform.request("rgb_led", 0)
 
         m.submodules.adc = adc = CrabADC()
-        m.submodules.dac = PWM(adc.output, platform.request("rgb_led", 0).g)
+        m.submodules.dac = PWM(adc.output, rgb_led.g)
 
         # m.submodules.serial = USBSerialDeviceExample(adc)
 
