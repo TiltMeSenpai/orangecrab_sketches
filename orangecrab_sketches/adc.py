@@ -33,7 +33,6 @@ class CrabADC(Elaboratable):
         m.submodules.popcount = self.popcount
 
         adc = platform.request("adc")
-        sync_out = platform.request("sync_out", 0)
         flush_timer = Signal(range(self.sample_queue.shape().width), reset=self.sample_queue.shape().width - 1)
         with m.If(flush_timer == 0):
             m.d.sync += self.valid.eq(1)
@@ -52,6 +51,5 @@ class CrabADC(Elaboratable):
             adc.ctrl[1].eq(self.enable),
             self.sample_queue.eq(self.sample_queue << 1),
             self.sample_queue[0].eq(adc.sense),
-            sync_out.eq(self.sample_queue[0])
         ]
         return m
