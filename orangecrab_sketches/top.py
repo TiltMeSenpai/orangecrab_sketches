@@ -49,7 +49,7 @@ class Main(Elaboratable):
         m.submodules.adc = adc = CrabADC()
         m.submodules.dac = PWM(adc.output, platform.request("rgb_led", 0).g)
 
-        m.submodules.serial = USBSerialDeviceExample(adc)
+        # m.submodules.serial = USBSerialDeviceExample(adc)
 
 
         m.d.sync += [

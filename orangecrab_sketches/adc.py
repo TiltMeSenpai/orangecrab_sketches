@@ -21,16 +21,17 @@ class Popcount(Elaboratable):
 class CrabADC(Elaboratable):
     def __init__(self, bit_width = 8):
         self.sample_queue = Signal(2 ** bit_width)
-        self.popcount = Popcount(self.sample_queue)
+        # self.popcount = Popcount(self.sample_queue)
         self.adc_mux  = Signal(4, reset=0x01)
         self.enable   = Signal()
         self.valid    = Signal()
-        self.output   = self.popcount.output
+        self.output   = Signal(bit_width)
 
     def elaborate(self, platform):
         m = Module()
 
-        m.submodules.popcount = self.popcount
+        # m.submodules.popcount = self.popcount
+        out_count = Signal()
 
         adc = platform.request("adc")
         flush_timer = Signal(range(self.sample_queue.shape().width), reset=self.sample_queue.shape().width - 1)
@@ -49,7 +50,11 @@ class CrabADC(Elaboratable):
         m.d.sync += [
             adc.ctrl[0].eq(adc.sense),
             adc.ctrl[1].eq(self.enable),
-            self.sample_queue.eq(self.sample_queue << 1),
-            self.sample_queue[0].eq(adc.sense),
+            Cat(out_count, self.sample_queue).eq(Cat(self.sample_queue, adc.sense))
         ]
+        with m.If(out_count == 1):
+            m.d.sync += self.output.eq(self.output + 1)
+        with m.Else():
+            with m.If(self.output != 0):
+                m.d.sync += self.output.eq(self.output - 1)
         return m
