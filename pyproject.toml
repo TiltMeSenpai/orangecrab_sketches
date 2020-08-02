@@ -7,17 +7,21 @@ authors = ["Josh Koike <jk@tilting.me>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 nmigen = { git = "git://github.com/nmigen/nmigen" }
-nmigen-boards = { path="../nmigen-boards" }
+nmigen-boards = { git = "git://github.com/nmigen/nmigen-boards", branch = "master" }
+# nmigen-boards = {  path = "../nmigen-boards" }
 yowasp-nextpnr-ecp5-25k = "*"
 yowasp-yosys = "*"
-usb_protocol = { git = "https://github.com/tiltmesenpai/python-usb-protocol" }
+# usb_protocol = { git = "https://github.com/tiltmesenpai/python-usb-protocol" }
+usb_protocol = { path = "../python-usb-protocol" }
 luna = { git = "git://github.com/tiltmesenpai/luna", branch = "master" }
+evdev = "^1.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pylint = "^2.5.3"
 setuptools = "*"
 wheel = "*"
+autopep8 = "^1.5.3"
 
 [build-system]
 requires = ["poetry>=0.12"]
