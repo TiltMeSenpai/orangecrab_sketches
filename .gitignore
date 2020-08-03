@@ -1,4 +1,5 @@
 build/*
+web_dashboard/node_modules/*
 .vscode/*
 __pycache__/*
 */__pycache__/*

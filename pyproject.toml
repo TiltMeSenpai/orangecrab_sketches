@@ -5,7 +5,7 @@ description = ""
 authors = ["Josh Koike <jk@tilting.me>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 nmigen = { git = "git://github.com/nmigen/nmigen" }
 nmigen-boards = { git = "git://github.com/nmigen/nmigen-boards", branch = "master" }
 # nmigen-boards = {  path = "../nmigen-boards" }
@@ -22,6 +22,8 @@ pylint = "^2.5.3"
 setuptools = "*"
 wheel = "*"
 autopep8 = "^1.5.3"
+quart = "*"
+
 
 [build-system]
 requires = ["poetry>=0.12"]

@@ -42,7 +42,7 @@ class Main(Elaboratable):
         programn = platform.request("program", 0)
         rgb_led = platform.request("rgb_led", 0)
 
-        m.submodules.adc = adc = CrabADC()
+        m.submodules.adc = adc = CrabADC(bit_width=10)
         m.submodules.dac = PWM(adc.output, rgb_led.g)
 
         m.submodules.hid = USBDevice(adc.output)

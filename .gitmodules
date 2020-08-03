@@ -1,0 +1,3 @@
+[submodule "deps/vispy"]
+	path = deps/vispy
+	url = https://github.com/vispy/vispy/

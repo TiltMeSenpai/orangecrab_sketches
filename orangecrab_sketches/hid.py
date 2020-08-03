@@ -37,7 +37,7 @@ class HIDDevice(Elaboratable):
         # I/O port
         #
         self.connect = Signal()
-        self.status  = Signal(8)
+        self.status  = Signal(10)
 
     def create_descriptors(self):
         descriptors = DeviceDescriptorCollection()
@@ -47,9 +47,9 @@ class HIDDevice(Elaboratable):
             0x09, 0x00,         # USAGE(Undefined)
             0xa1, 0x01,         # COLLECTION(Application)
             0x15, 0x00,         # LOGICAL_MINIMUM(0)
-            0x26, 0xff, 0x00,   # LOGICAL_MAXIMUM(255)
+            0x26, 0x00, 0x04,   # LOGICAL_MAXIMUM(10 bit max)
             0x85, 0x01,         # REPORT_ID(1)
-            0x75, 0x08,         # REPORT_SIZE(8)
+            0x75, 0x0a,         # REPORT_SIZE(8)
             0x95, 0x01,         # REPORT_COUNT(1)
             0x09, 0x00,         # USAGE(Undefined)
             0x81, 0x82,         # INPUT(Data, Var, Abs, Vol) - to the host
@@ -84,7 +84,7 @@ class HIDDevice(Elaboratable):
                     e.bEndpointAddress = 0x80 | self._STATUS_ENDPOINT_NUMBER
                     e.bmAttributes     = USBTransferType.INTERRUPT
                     e.wMaxPacketSize   = self._max_packet_size
-                    e.bInterval        = 11
+                    e.bInterval        = 1
 
 
         descriptors.add_descriptor(hid_report, 0x22)
@@ -99,7 +99,7 @@ class HIDDevice(Elaboratable):
 
         # Create an interrupt endpoint which will carry the value of our counter to the host
         # each time our interrupt EP is polled.
-        status_ep = USBSignalInEndpoint(width=16, endpoint_number=1, endianness="little")
+        status_ep = USBSignalInEndpoint(width=24, endpoint_number=1, endianness="little")
         usb.add_endpoint(status_ep)
         m.d.comb += [
             status_ep.signal[0:8].eq(0x01),
