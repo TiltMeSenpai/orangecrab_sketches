@@ -11,8 +11,8 @@ nmigen-boards = { git = "git://github.com/nmigen/nmigen-boards", branch = "maste
 # nmigen-boards = {  path = "../nmigen-boards" }
 yowasp-nextpnr-ecp5-25k = "*"
 yowasp-yosys = "*"
-# usb_protocol = { git = "https://github.com/tiltmesenpai/python-usb-protocol" }
-usb_protocol = { path = "../python-usb-protocol" }
+usb_protocol = { git = "https://github.com/tiltmesenpai/python-usb-protocol" }
+# usb_protocol = { path = "../python-usb-protocol" }
 luna = { git = "git://github.com/tiltmesenpai/luna", branch = "master" }
 evdev = "^1.3.0"
 
