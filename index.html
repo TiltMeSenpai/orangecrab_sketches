@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function () {
+
+var dps = []; // dataPoints
+var chart = new CanvasJS.Chart("chartContainer", {
+	title :{
+		text: "Dynamic Data"
+	},
+	data: [{
+		type: "line",
+		dataPoints: dps
+	}]
+});
+
+var xVal = 0;
+var yVal = 100; 
+var updateInterval = 100;
+var dataLength = 10000; // number of dataPoints visible at any point
+
+var ws = new WebSocket("ws://" + document.domain + ":" + location.port + "/ws");
+
+ws.onmessage = function(event) {
+	point = JSON.parse(event.data);
+	dps.push({
+		x: point[0],
+		y: point[1]
+	});
+	if (dps.length > dataLength) {
+		dps.shift()
+	}
+}
+
+var doRender = function() {
+	chart.render()
+	requestAnimationFrame(doRender)
+}
+requestAnimationFrame(doRender)
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width:100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

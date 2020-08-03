@@ -49,7 +49,7 @@ class HIDDevice(Elaboratable):
             0x15, 0x00,         # LOGICAL_MINIMUM(0)
             0x26, 0x00, 0x04,   # LOGICAL_MAXIMUM(10 bit max)
             0x85, 0x01,         # REPORT_ID(1)
-            0x75, 0x0a,         # REPORT_SIZE(8)
+            0x75, 0x0a,         # REPORT_SIZE(10)
             0x95, 0x01,         # REPORT_COUNT(1)
             0x09, 0x00,         # USAGE(Undefined)
             0x81, 0x82,         # INPUT(Data, Var, Abs, Vol) - to the host
